@@ -47,7 +47,7 @@ interface IHangmanCardProps {
   const intitalLetterBoard = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
   const [letterboard, setLetterboard] = useState<string[]>(intitalLetterBoard); 
   const [usedLetter, setUsedLetter] = useState<string[]>([]);
-  const [gameOver, setGameOverText] = useState<string>('Hello');
+  const [gameOver, setGameOverText] = useState<string>(' ');
   const [win, setWin] = useState<boolean> (false);
   const [lose, setLose] = useState <boolean> (false);
   const [wrongCounter, setWrongCounter] = useState<number>(0);
@@ -158,7 +158,7 @@ const checkWinLose = () => {
       <View nativeID='game-board' style = {styles.gameContainer}> 
      
       <View style={styles.imageContainer}>
-        <Image source = {require(`../assets/hangman${wrongCounter}.png`)} style={{width:160, height: 355}} />
+        <Image source = {require(`../assets/hangman${wrongCounter}.png`)} style={styles.image} />
         </View>
         
             <View style={styles.buttonContainer}>
@@ -174,13 +174,12 @@ const checkWinLose = () => {
           
      
       </View>
-       <View style={styles.boardView}>
-       <Text style = {styles.cardText}>{word}</Text>
-        <View style={styles.boardContainer}>
+     
+        <View style={styles.wordContainer}>
      
           <Text style ={styles.wordText}>{thisWord}</Text>
         </View>
-      </View>
+
       <View  style={styles.letterView}>
       <View  style={styles.letterContainer}>
       {letterboard.map((value, index) => (
@@ -203,24 +202,27 @@ const checkWinLose = () => {
 const styles = StyleSheet.create({
     backgroundContainer: {
       flex: 1,
-      marginTop: 10,
+      marginTop: 25,
       width: '100%',
-      backgroundColor: 'light blue',
+     
       alignItems: 'center',
        },
 
       gameContainer: {
-       flex: 2,
-       width: 300,
+       flex: 1.5,
+       width: 340,
         flexDirection: 'row',
-        backgroundColor:'green',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+
       },
-      
+      image: {
+        flex:1,
+        aspectRatio:0.45,
+        borderColor:'black',
+        borderWidth:4
+      },
       imageContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center', 
+      flex:1,
        },
        
        buttonContainer: {
@@ -228,54 +230,48 @@ const styles = StyleSheet.create({
        },
        gameOverContainer: {
         flex:1,
-        backgroundColor:'blue',
         justifyContent:'flex-end',
         
-      }
-      ,
-
-       cardText: {
-         fontSize: 40,
        }
-       ,
-       boardView: {
-        flex: 0.5,
-        alignItems: 'center',
-        backgroundColor: 'red',
-      
-      },
-      boardContainer: {
-       flex: 2,
-       width: 300,
+      ,
+      wordContainer: {
+        width:340,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        alignItems: 'center'
-      
+       
+        marginTop: 20,
+    
+      }
+      ,
+      wordText: {
+        fontSize: 35
       }
        ,
        letterView: {
         flex: 1,
-        alignItems: 'center',
+        width:340,
+        marginTop: 20,
+    
+    
+        
       },
       letterContainer: {
-        width: 300,
         flexDirection: 'row',
          flexWrap: 'wrap',
-         alignItems: 'flex-start',
+         justifyContent: 'center',
+    
+     
       } ,
       tile: {
-        width:35,
-        height:35,
+        width:45,
+        height:45,
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
 
       }
       ,
-      wordText: {
-        fontSize: 30
-      },
       tileText: {
         fontSize: 15
       },
@@ -292,11 +288,11 @@ const styles = StyleSheet.create({
         
       },
       buttonText: {
-        fontSize: 10
+        fontSize: 18
       },
       disableTile:{
-        width:35,
-        height:35,
+        width:45,
+        height:45,
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
