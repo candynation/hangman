@@ -111,7 +111,7 @@ const checkWinLose = () => {
   else if (unquieChar.size==0)
   {
     setWin(true);
-    setGameOverText('Win')
+    setGameOverText('Correct')
 
   }
 
@@ -158,17 +158,17 @@ const checkWinLose = () => {
       <View nativeID='game-board' style = {styles.gameContainer}> 
      
       <View style={styles.imageContainer}>
-        <Image source = {require(`../assets/hangman${wrongCounter}.png`)} style={styles.image} />
+        <Image testID={`hangmanImages${wrongCounter}`} source = {require(`../assets/hangman${wrongCounter}.png`)} style={styles.image} />
         </View>
         
             <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={()=> handleNextWord()} style={styles.button}><Text style={styles.buttonText}>Next word</Text></TouchableOpacity>
-            <TouchableOpacity onPress={()=> handleRestart()} style={styles.button}><Text style={styles.buttonText}>Restart</Text></TouchableOpacity>
+            <TouchableOpacity testID='btnNextWord' onPress={()=> handleNextWord()} style={styles.button}><Text style={styles.buttonText}>Next Word</Text></TouchableOpacity>
+            <TouchableOpacity testID='btnRestart' onPress={()=> handleRestart()} style={styles.button}><Text style={styles.buttonText}>Restart</Text></TouchableOpacity>
             <View style={lose? {display:'flex'}: {display:'none'}}>
-            <TouchableOpacity onPress={()=> handleShowAnswer()} style={styles.button}><Text style={styles.buttonText}>Show Answer</Text></TouchableOpacity>
+            <TouchableOpacity testID='btnShowAnswer' onPress={()=> handleShowAnswer()} style={styles.button}><Text style={styles.buttonText}>Show Answer</Text></TouchableOpacity>
            
             </View>
-            <View style={styles.gameOverContainer}><Text>{gameOver}</Text></View>
+            <View style={styles.gameOverContainer}><Text testID='txtGameOver' style={styles.gameOverText}>{gameOver}</Text></View>
           </View>
           
           
@@ -176,18 +176,18 @@ const checkWinLose = () => {
       </View>
      
         <View style={styles.wordContainer}>
-     
-          <Text style ={styles.wordText}>{thisWord}</Text>
+          <Text testID='txtWord' style ={styles.wordText}>{thisWord}</Text>
         </View>
 
       <View  style={styles.letterView}>
-      <View  style={styles.letterContainer}>
+      <View  testID='letterboard' style={styles.letterContainer}>
       {letterboard.map((value, index) => (
             <TouchableOpacity
               key={index}
               style={(checkisUsed(value))?styles.disableTile:styles.tile}
               onPress={() => {handleLetterPress(index);}}
-              disabled={checkisUsed(value)}>
+              disabled={checkisUsed(value)}
+              testID={`letter${value}`}>
               
               <Text style={styles.tileText}>{value}</Text>
             </TouchableOpacity>
@@ -232,6 +232,9 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'flex-end',
         
+       } ,
+       gameOverText: {
+         fontSize: 20
        }
       ,
       wordContainer: {

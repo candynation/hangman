@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Hangman</Text>
+      <Text testID="txtTitle" style={styles.titleText}>Hangman</Text>
       <HangmanCard word={word} id={id} key={id} handleNextWord={handleNewWord}/> 
       </View>
   );
